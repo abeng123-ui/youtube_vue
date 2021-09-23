@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue Beginners</title>
+	<style>
+		body {
+			margin:  5%;
+			font-family: 'verdana', sans-serif;
+		}
+
+		.active {
+			background: salmon;
+			border: 0;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<header>
+		<img src="image/vue.png" width="80">
+		<h5 v-text="name"></h5>
+		<input type="text" v-model="name">
+		<ul>
+			<li v-for="(item, index) of kelasFor">{{ index }} {{ item }}</li>
+		</ul>
+		<p>{{ kelas }}</p>
+		<div>
+			<label><input type="checkbox" value="React" v-model="kelas">React</label>
+			<label><input type="checkbox" value="Vuejs" v-model="kelas">Vuejs</label>
+			<label><input type="checkbox" value="Angular" v-model="kelas">Angular</label>
+		</div>
+
+		<h5 v-text="bilangan"></h5>
+		<p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
+		<!-- directive -->
+		<h6 v-text="link.toUpperCase()"></h6>
+		<h6 v-html="link2"></h6>
+		<!-- attribute binding, pake v-bind:src atau lgsg :src -->
+		<img :src="gambar" width="50">
+		<!-- event on click pake v-on:click atau diganti @click jg bisa -->
+		<p><button v-on:click="handleClick">Ditekan</button></p>
+		<p>Javascript Framework</p>
+		<!-- class binding -->
+		<button v-bind:class="{active: menu === 'home'}" v-on:click="menu='home'">Home</button>
+		<button v-bind:class="{active: menu === 'about'}" v-on:click="menu='about'">About</button>
+		<button v-bind:class="{active: menu === 'blog'}" v-on:click="menu='blog'">Blog</button>
+	</header>
+	<footer>
+		<p>copyright@2020</p>
+	</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+<script>
+	const vm = new Vue({
+		el : '#app',
+		data: {
+			// string, boolean, number, array, object
+			name: "Doremi Fasola",
+			message: "Hello World",
+			qty: 3,
+			namaDepan: "Akbar",
+			namaBelakang: "Syidiq",
+			bilangan: 6,
+			link: '<a href="youtube.com">Youtube</a>',
+			link2: '<a href="youtube.com">Youtube</a>',
+			gambar: 'image/vue.png',
+			menu: 'home',
+			kelas: [],
+			kelasFor: ['PHP', 'GOLANG']
+		},
+		methods: {
+			getname: function() {
+				return 'Hello, ' +this.name
+			},
+			ubahNama: function(namaBaru) {
+				this.name = namaBaru
+				return this.getname()
+			},
+			handleClick: function() {
+				this.bilangan++
+				this.gambar = "image/react.png"
+			}
+		},
+		computed: {
+			totalBayar: function() {
+				return this.qty * 1000
+			},
+			namaLengkap: function() {
+				return this.namaDepan + this.namaBelakang
+			},
+			infoBilangan: function() {
+				return this.bilangan%2 === 0 ? 'Genap' : 'Ganjil'
+			}
+		}
+	})
+</script>
+</body>
+</html>
